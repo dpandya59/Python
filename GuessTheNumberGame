@@ -1,0 +1,20 @@
+#Guess the Number game
+#23_mar2024
+import random
+import math
+lower = int(input("Input Lower bound:"))
+upper = int(input("Input Upper bound:"))
+x = random.randint(lower,upper)
+print("\n\t You have only",round(math.log(upper-lower+1,2))," chances to guess the integer\n")
+count=0
+while(count<= round(math.log(upper-lower+1,2))):
+    count+=1
+    inputNumber = int(input("\nGuess the number:"))
+    if(inputNumber>x):
+        print(" Try again, you guess too high")
+    elif(inputNumber<x):
+        print(" Try again, you guess too low")
+    elif(inputNumber==x):
+        print(" Congratulation , you guess correct number in ",count," attempts")
+        break
+print("Ideal guess attempts were ",round(math.log(upper-lower+1,2)))
