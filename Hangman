@@ -1,0 +1,63 @@
+import random
+from collections import Counter
+#Deepak Pandya
+#25-Mar-2024
+#Hangman
+someWords = '''apple banana mango strawberry  
+orange grape pineapple apricot lemon coconut watermelon 
+cherry papaya berry peach lychee muskmelon'''
+someWords=someWords.split(' ')
+word = random.choice(someWords)
+
+if __name__=='__main__':
+    print("Guess the Word, Hint: Word is a name of fruit")
+    attempts = len(word)+2
+    flag=0
+    letterguessed=''
+    for i in word:
+        print('*',end='')
+    print()
+    
+    try:
+        while(attempts>0 and flag==0):
+            attempts-=1
+            print()
+            try:
+                guess=str(input("Guess the character:"))
+            except:
+                print("Enter only String character")
+                continue
+            
+            if not guess.isalpha():
+                print("Enter only character")
+                continue
+            elif len(guess)>1:
+                print("Enter only one character")
+                continue
+            elif guess in letterguessed:
+                print("You have already guessed this letter try again")
+                continue
+            
+            if guess in word:
+                k=word.count(guess)
+                for _ in range(k):
+                    letterguessed+=guess
+
+            for char in word:
+                if char in letterguessed and Counter(letterguessed)!=Counter(word):
+                    print(char,end=' ')
+                elif Counter(letterguessed)==Counter(word):
+                    print("Congratulations you have guessed right. The word is:",word)
+                    flag =1
+                    break
+                else:
+                    print('_',end=' ')
+            print("attempts:",attempts)
+            if attempts<=0 and Counter(letterguessed)!=Counter(word):
+                print('You lost! Try again.')
+                print('The word was {}'.format(word))
+                
+    except KeyboardInterrupt:
+        print ('Word was {}'.format(word))
+        pint('Bye!')
+        exit()
