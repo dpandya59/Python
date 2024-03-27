@@ -1,0 +1,108 @@
+def lose():
+        print("You lose!")
+        exit(0)
+
+def check(xyz):
+        i = 1
+        while i<len(xyz):
+            if xyz[i]-xyz[i-1]!=1:
+                return False
+            i=i+1
+        return True
+
+def nearestMultiple(near):
+    if near>=4:
+        near=near+ (4-(near%4))
+    else:
+        near=4
+    return near
+    
+def Game():
+        xyz=[]
+        last=0
+        print("Do you play First(F) or Second(S):")
+        chance=input('>')
+        if chance=='F':
+            while True:
+                if last==20:
+                    lose()
+                print('How many number you want to enter:')
+                totalNumber = int(input('>'))
+                if totalNumber >0 and totalNumber<=3:
+                    comp=4-totalNumber
+                else:
+                    print("Wrong number of input, You are disqualified")
+                    lose()
+                i=1
+                while i<=totalNumber:
+                    print("Input Number ",i)
+                    x= input('>')
+                    x=int(x)
+                    xyz.append(x)
+                    i+=1
+                
+                last=xyz[-1]
+                
+                if check(xyz):
+                    if last ==20:
+                        lose()
+                    else:
+                        j=1
+                        while j<=comp:
+                            xyz.append(last+j)
+                            j=j+1
+                        print("Order of inputs after computer's turn is:")
+                        print(xyz)
+                        last=xyz[-1]
+                else:
+                    print("Number must be in sequence.")
+                    lose()
+            print("Congeratulations You Won")
+            exit(0)
+        elif chance=='S':
+            comp=1
+            j=0
+            while last<20:
+                j=1
+                while j<=comp:
+                    xyz.append(last+j)
+                    j=j+1
+                last=xyz[-1]
+                
+                if last==20:
+                    lose()
+                else:
+                    print("Sequence aftet computer turn is:")
+                    print(xyz)
+                    print("How many number you want to insert:")
+                    inp=int(input('>'))
+                    i=1
+                    while i<=inp:
+                        xyz.append(int(input('>')))
+                        i+=1
+                    last=xyz[-1]
+                    
+                    if check(xyz):
+                        near=nearestMultiple(last)
+                        comp=near-last
+                        if comp==4:
+                            comp=3
+                    else:
+                        print("\n You did not enter number in sequence.")
+                        lose()
+
+        else:
+            print("Wrong input.")
+
+game=True
+while game:
+    print("Do you want to Play 21 game?(Yes/No)")
+    playGame = input(">")
+    if playGame=='Yes':
+        Game()
+    elif playGame =='No':
+        print("Quitting game!!")
+        exit(0)
+    else:
+        print("Wrong choice")
+    
