@@ -1,0 +1,23 @@
+#Deepak Pandya
+#31-Mar-2024
+import random
+
+computerInput = random.randrange(1000,10000)
+
+userInput = int(input('Input your four digit number:'))
+if userInput == computerInput:
+    print('Awesome, you guess number in 1st attempt. You are Mastermind.')
+else:
+    count=0
+    while (computerInput!=userInput):
+        count +=1
+        correctNumber=['*']*4
+        computerInput =str(computerInput)
+        userInput = str(userInput)
+        for i in range(0,4):
+            if computerInput[i]==userInput[i]:
+                correctNumber[i]=userInput[i]
+        print('Not Quite right, you correct guess digits are :',correctNumber)
+        userInput=input('Take another guess:')
+    if userInput==computerInput:
+        print('Great, it took  number of guess for you. Mastermind',count)
